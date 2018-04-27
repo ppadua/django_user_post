@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	.fields form section span{
+		display: inline-block;
+		width: 100px;
+	}
+	.fields form section{
+		margin: 10px 0px;
+	}
+	.fields form{
+		width: 278px;
+	}
+	.fields form >input{
+		float: right;
+	}
+</style>
+<body>
+	<div id="content">
+		{% if messages %}
+			<ul class="messages">
+			    {% for message in messages %}
+					{% if message.extra_tags  == "register" %}
+			    		<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+			  	 	{% endif %}
+			    {% endfor %}
+			</ul>
+		{% endif %}
+		<div class="fields">
+			<h1>Registration</h1>
+			<form action="/registration"  method="post">
+				{% csrf_token %}
+				<section>
+					<span>First name:</span>
+					<input type="text" name="first_name">
+				</section>
+				<section>
+					<span>Last name:</span>
+					<input type="text" name="last_name">
+				</section>
+				<section>
+					<span>Email:</span>
+					<input type="text" name="email">
+				</section>
+				<section>
+					<span>Password:</span>
+					<input type="password" name="password">
+				</section>
+				<section>
+					<span>Confirm pw:</span>
+					<input type="password" name="confirm_password">
+				</section>
+				<input type="submit" value="Register">
+			</form>
+		</div>
+		<div class="fields">
+			{% if messages %}
+				<ul class="messages">
+				    {% for message in messages %}
+						{% if message.extra_tags  == "login" %}
+				    		<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+				  	 	{% endif %}
+				    {% endfor %}
+				</ul>
+			{% endif %}
+			<h1>Login</h1>
+			<form action="/login" method="post">
+				{% csrf_token %}
+				<section>
+					<span>Email:</span>
+					<input type="text" name="email">
+				</section>
+				<section>
+					<span>Password:</span>
+					<input type="password" name="password">
+				</section>
+				<input type="submit" value="Login">
+			</form>
+		</div>
+	</div>
+</body>
+</html>
