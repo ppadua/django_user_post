@@ -1,0 +1,35 @@
+.main_content form textarea {
+  width: 100%;
+  resize: none;
+}
+.main_content form input[type=submit] {
+  float: right;
+  background-color: #009E0F;
+  color: white;
+  border: 1px solid black;
+  cursor: pointer;
+}
+.main_content .user_posts {
+  margin-top: 30px;
+}
+.main_content .user_posts .post p,
+.main_content .user_posts .comments p {
+  display: inline-block;
+  margin: 0;
+}
+.main_content .user_posts .post p:nth-child(2),
+.main_content .user_posts .comments p:nth-child(2) {
+  float: right;
+}
+.main_content .user_posts .post div,
+.main_content .user_posts .comments div {
+  border: 1px solid black;
+  height: 60px;
+  padding: 2px;
+}
+.main_content .user_posts .comments {
+  margin-top: 20px;
+}
+.main_content .user_posts .comments li {
+  margin-top: 20px;
+}

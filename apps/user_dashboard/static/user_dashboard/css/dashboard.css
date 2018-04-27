@@ -1,0 +1,15 @@
+.container-fluid .manage_user {
+  margin-bottom: 10px;
+}
+.container-fluid .manage_user h3 {
+  display: inline-block;
+}
+.container-fluid .manage_user button {
+  display: inline-block;
+  float: right;
+  background-color: #2976E2;
+  border: 1px solid black;
+}
+.container-fluid .manage_user button a {
+  color: white;
+}

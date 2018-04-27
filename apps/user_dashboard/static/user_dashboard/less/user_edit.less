@@ -1,0 +1,58 @@
+.container-fluid{
+	>h3, a{
+		display: inline-block;
+		margin-bottom: 20px;
+	}
+
+	.main_content{
+		>div{
+			width: 47%;
+			display: inline-block;
+			vertical-align: top;
+		}
+
+		div:first-child{
+			margin-right: 5%;
+		}
+	}
+
+	fieldset{
+		border: 1px groove #ddd !important;
+		padding: 0 1.4em 1.4em 1.4em !important;
+
+		legend {
+			font-size: 12px !important;
+			font-weight: bold !important;
+			text-align: left !important;
+			width:auto;
+			padding:0 10px;
+			border-bottom:none;
+		}
+
+		input[type='text'], select, input[type='password'] {
+			width: 100%;
+			margin-bottom: 10px;
+		}
+
+		input[type='submit']{
+			float: right;
+			margin-top: 10px;
+			border: 1px solid black;
+			background-color: #009E0F;
+			color: white;
+			cursor: pointer;
+		}
+		>p{
+			margin: 0;
+		}
+
+		textarea{
+			width: 100%;
+			height: 200px;
+			resize: none;
+		}
+	}
+	.footer_content{
+		margin-top: 20px;
+	}
+}

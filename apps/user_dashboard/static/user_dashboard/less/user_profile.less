@@ -1,0 +1,44 @@
+.main_content{
+	form{
+		textarea{
+			width: 100%;
+			resize: none;
+		}
+
+		input[type=submit]{
+			float: right;
+			background-color: #009E0F;
+			color: white;
+			border: 1px solid black;
+			cursor: pointer;
+			
+		}
+	}
+
+	.user_posts{
+		margin-top: 30px;
+
+		.post, .comments{
+			p{
+				display: inline-block;
+				margin: 0;
+			}
+			p:nth-child(2){
+				float:right;
+			}
+			div{
+				border: 1px solid black;
+				height: 60px;
+				padding: 2px;
+			}
+		}
+
+		.comments{
+			margin-top: 20px;
+
+			li{
+				margin-top: 20px;
+			}
+		}
+	}
+}

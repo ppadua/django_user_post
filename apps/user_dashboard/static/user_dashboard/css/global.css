@@ -1,0 +1,22 @@
+* {
+  list-style-type: none;
+}
+.header {
+  border-bottom: 1px solid black;
+  padding: 5px 50px;
+}
+.header ul {
+  display: inline-block;
+}
+.header ul li {
+  display: inline-block;
+}
+.header > .right_header {
+  float: right;
+}
+.header > .left_header li {
+  margin-right: 30px;
+}
+.container-fluid {
+  padding: 50px;
+}

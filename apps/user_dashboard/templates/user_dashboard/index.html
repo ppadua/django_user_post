@@ -2,84 +2,45 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Dashboard</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'user_dashboard/css/global.css' %}" media="screen" title="no title"  charset="utf-8">
+	<link rel="stylesheet" href="{% static 'user_dashboard/css/index.css' %}" media="screen" title="no title"  charset="utf-8">
 </head>
-<style>
-	.fields form section span{
-		display: inline-block;
-		width: 100px;
-	}
-	.fields form section{
-		margin: 10px 0px;
-	}
-	.fields form{
-		width: 278px;
-	}
-	.fields form >input{
-		float: right;
-	}
-</style>
 <body>
-	<div id="content">
-		{% if messages %}
-			<ul class="messages">
-			    {% for message in messages %}
-					{% if message.extra_tags  == "register" %}
-			    		<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-			  	 	{% endif %}
-			    {% endfor %}
+	<div id="wrapper">
+		<div class="header">
+			<ul class="left_header list-group">
+				<li><h5>Test App</h5></li>
+				<li>Home</li>
 			</ul>
-		{% endif %}
-		<div class="fields">
-			<h1>Registration</h1>
-			<form action="/registration"  method="post">
-				{% csrf_token %}
-				<section>
-					<span>First name:</span>
-					<input type="text" name="first_name">
-				</section>
-				<section>
-					<span>Last name:</span>
-					<input type="text" name="last_name">
-				</section>
-				<section>
-					<span>Email:</span>
-					<input type="text" name="email">
-				</section>
-				<section>
-					<span>Password:</span>
-					<input type="password" name="password">
-				</section>
-				<section>
-					<span>Confirm pw:</span>
-					<input type="password" name="confirm_password">
-				</section>
-				<input type="submit" value="Register">
-			</form>
+			<ul class="right_header list-group">
+				<li><a href="/signin">Sign in</a></li>
+			</ul>
 		</div>
-		<div class="fields">
-			{% if messages %}
-				<ul class="messages">
-				    {% for message in messages %}
-						{% if message.extra_tags  == "login" %}
-				    		<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-				  	 	{% endif %}
-				    {% endfor %}
+		<div class="container-fluid">
+			<div class="main_content">
+				<h2>Welcome to the Test</h2>
+				<p>We're going to build a cool application using MVC framework! This application was built with the Village88 tasks!</p>
+				<a href="/signin">Start</a>
+			</div>
+			<div class="footer_content">
+				<ul class="list-group">
+					<li>
+						<h4>Manage Users</h4>
+						<p>Using this application, you'll learn how to add, remove, and edit users for the application.</p>
+					</li>
+					<li>
+						<h4>Leave messages</h4>
+						<p>Users will be able to leave a message to another using this application.</p>
+					</li>
+					<li>
+						<h4>Edit User Information</h4>
+						<p>Admin will be able to edit another user's information (email address, first name, last name, etc.)</p>
+					</li>
 				</ul>
-			{% endif %}
-			<h1>Login</h1>
-			<form action="/login" method="post">
-				{% csrf_token %}
-				<section>
-					<span>Email:</span>
-					<input type="text" name="email">
-				</section>
-				<section>
-					<span>Password:</span>
-					<input type="password" name="password">
-				</section>
-				<input type="submit" value="Login">
-			</form>
+			</div>
 		</div>
 	</div>
 </body>

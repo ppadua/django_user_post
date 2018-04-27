@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Dashboard</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'user_dashboard/css/global.css' %}" media="screen" title="no title"  charset="utf-8">
+	<link rel="stylesheet" href="{% static 'user_dashboard/css/user_profile.css' %}" media="screen" title="no title"  charset="utf-8">
+</head>
+<body>
+	<div id="wrapper">
+		<div class="header">
+			<ul class="left_header list-group">
+				<li><h5>Test App</h5></li>
+				<li><a href="/">Dashboard</a></li>
+				<li><a href="/users/edit">Profile</a></li>
+			</ul>
+			<ul class="right_header list-group">
+				{% if not request.session.id %}
+					<li><a href="/signin">Sign in</a></li>
+				{% else %}
+					<li><a href="/logoff">Log off</a></li>
+				{%endif%}
+			</ul>
+		</div>
+		<div class="container-fluid">
+			<div class="user_info">
+				<h3>{{user.first_name}} {{user.last_name}}</h3>
+				<p>Registered at : {{user.created_at}}</p>
+				<p>User ID : {{user.id}}</p>
+				<p>Email address : {{user.email}}</p>
+				<p>Description : {{user.description}}</p>
+			</div>
+			<div class="main_content">
+				<div class="leave_message">
+					<h4>Leave a message for {{user.first_name}}</h4>
+					<form action="/users/post_message" method="post">
+						{% csrf_token %}
+						<input type="hidden" value="{{user.id}}" name="posted_to">
+						<textarea name="post_message" id=""></textarea>
+						<input type="submit" value="Post">
+					</form>
+				</div>
+				<div class="user_posts">
+					{% for message in messages %}
+						<section class="user_post">
+							<div class="post">
+								<p>{{message.first_name}} {{message.last_name}} wrote:</p>
+								<p>7 hours ago</p>
+								<div>
+									<span>{{message.post_message}}</span>
+								</div>
+							</div>
+							<ul class="comments">
+								<li>
+									<p>Mark Guiilen wrote:</p>
+									<p>7 hours ago</p>
+									<div>
+										<span>Hi Michael! I am having fun building BoomYEAH</span>
+									</div>
+								</li>
+								<li>
+									<form action="/users/post_comment" method="post">
+										<input type="hidden" value="{{message.post_id}}" name="post_id">
+										<textarea name="post_comment" id="" placeholder="write a message"></textarea>
+										<input type="submit" value="Post">
+									</form>
+								</li>
+							</ul>
+						</section>
+					{% endfor %}
+					<!-- <section class="user_post">
+						<div class="post">
+							<p>Mark Guiilen wrote:</p>
+							<p>7 hours ago</p>
+							<div>
+								<span>Hi Michael! I am having fun building BoomYEAH</span>
+							</div>
+						</div>
+						<ul class="comments">
+							<li>
+								<p>Mark Guiilen wrote:</p>
+								<p>7 hours ago</p>
+								<div>
+									<span>Hi Michael! I am having fun building BoomYEAH</span>
+								</div>
+							</li>
+							<li>
+								<form action="">
+									<textarea name="" id="" placeholder="write a message"></textarea>
+									<input type="submit" value="Post">
+								</form>
+							</li>
+						</ul>
+					</section> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

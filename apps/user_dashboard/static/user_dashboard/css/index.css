@@ -1,0 +1,25 @@
+#wrapper .container-fluid {
+  padding: 5px 50px;
+}
+#wrapper .container-fluid .main_content {
+  background-color: #DDDDDD;
+  padding: 20px;
+  padding-bottom: 40px;
+  margin-top: 10px;
+  border: 1px solid #CCCCCC;
+}
+#wrapper .container-fluid .main_content a {
+  border: 1px solid black;
+  padding: 3px 10px;
+  color: white;
+  background-color: #2A77E3;
+}
+#wrapper .footer_content ul {
+  margin-top: 30px;
+  display: inline-block;
+}
+#wrapper .footer_content ul li {
+  display: inline-block;
+  vertical-align: top;
+  width: 32%;
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Dashboard</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'user_dashboard/css/global.css' %}" media="screen" title="no title"  charset="utf-8">
+	<link rel="stylesheet" href="{% static 'user_dashboard/css/signin.css' %}" media="screen" title="no title"  charset="utf-8">
+</head>
+<body>
+	<div id="wrapper">
+		<div class="header">
+			<ul class="left_header list-group">
+				<li><h5>Test App</h5></li>
+				<li>Home</li>
+			</ul>
+			<ul class="right_header list-group">
+				<li><a href="/signin">Sign in</a></li>
+			</ul>
+		</div>
+		<div class="container-fluid">
+			{% if messages %}
+				<ul class="messages">
+				    {% for message in messages %}
+						{% if message.extra_tags  == "login" %}
+				    		<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+				  	 	{% endif %}
+				    {% endfor %}
+				</ul>
+			{% endif %}
+			<h2>Sign in</h2>
+			<form action="/login" method="post">
+				{% csrf_token %}
+				<section>
+					<p>Email Address:</p>
+					<input type="text" name="email">
+				</section>
+				<section>
+					<p>Password:</p>
+					<input type="password" name="password">
+				</section>
+				<input type="submit" value="Sign In">
+			</form>
+			<div class="register">
+			<a href="/register">Don't have an account? Register</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

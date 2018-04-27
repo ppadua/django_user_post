@@ -16,11 +16,11 @@ class UserManager(models.Manager):
 				errors["last_name"] = "Last Name at least 2 characters and must not contain numbers"
 			if postData["password"] != postData["confirm_password"]:
 				errors["confirm_password"] = "Password and Confirm password should match"
+			if len(postData["password"]) < 8 or len(postData["password"]) == 0:
+				errors["password"] = "Password at fewer than 8 characters and not empty"
 
 		if not EMAIL_REGEX.match(postData['email']):
 			errors["email"] = "Invalid Email Address!"
-		if len(postData["password"]) < 8 or len(postData["password"]) == 0:
-			errors["password"] = "Password at fewer than 8 characters and not empty"
 
 		return errors
 
@@ -46,7 +46,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
 	comment_message = models.IntegerField()
-	comment = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comment", default="")
+	post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comment", default="")
 	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="commentor", default="")
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)

@@ -1,0 +1,50 @@
+.container-fluid > h3,
+.container-fluid a {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+.container-fluid .main_content > div {
+  width: 47%;
+  display: inline-block;
+  vertical-align: top;
+}
+.container-fluid .main_content div:first-child {
+  margin-right: 5%;
+}
+.container-fluid fieldset {
+  border: 1px groove #ddd !important;
+  padding: 0 1.4em 1.4em 1.4em !important;
+}
+.container-fluid fieldset legend {
+  font-size: 12px !important;
+  font-weight: bold !important;
+  text-align: left !important;
+  width: auto;
+  padding: 0 10px;
+  border-bottom: none;
+}
+.container-fluid fieldset input[type='text'],
+.container-fluid fieldset select,
+.container-fluid fieldset input[type='password'] {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.container-fluid fieldset input[type='submit'] {
+  float: right;
+  margin-top: 10px;
+  border: 1px solid black;
+  background-color: #009E0F;
+  color: white;
+  cursor: pointer;
+}
+.container-fluid fieldset > p {
+  margin: 0;
+}
+.container-fluid fieldset textarea {
+  width: 100%;
+  height: 200px;
+  resize: none;
+}
+.container-fluid .footer_content {
+  margin-top: 20px;
+}

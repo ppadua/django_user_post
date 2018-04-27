@@ -1,0 +1,37 @@
+.container-fluid {
+  padding: 50px;
+}
+.container-fluid form {
+  width: 200px;
+  clear: both;
+}
+.container-fluid form section {
+  margin-bottom: 10px;
+}
+.container-fluid form section p {
+  margin: 0;
+}
+.container-fluid form section input {
+  width: 200px;
+}
+.container-fluid form > input {
+  background-color: #009E0F;
+  color: white;
+  float: right;
+  border: 1px solid black;
+  cursor: pointer;
+}
+.container-fluid .register {
+  clear: both;
+  padding-top: 10px;
+}
+.container-fluid .messages {
+  padding: 0 !important;
+  width: 500px;
+  border: 1px solid black;
+  background-color: #FF8080;
+  color: white;
+}
+.container-fluid .messages li {
+  padding: 5px;
+}

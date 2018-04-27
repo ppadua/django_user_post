@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Dashboard</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'user_dashboard/css/global.css' %}" media="screen" title="no title"  charset="utf-8">
+	<link rel="stylesheet" href="{% static 'user_dashboard/css/user_edit.css' %}" media="screen" title="no title"  charset="utf-8">
+</head>
+<body>
+	<div id="wrapper">
+		<div class="header">
+			<ul class="left_header list-group">
+				<li><h5>Test App</h5></li>
+				<li><a href="/">Dashboard</a></li>
+				<li><a href="/users/edit">Profile</a></li>
+			</ul>
+			<ul class="right_header list-group">
+				{% if not request.session.id %}
+					<li><a href="/signin">Sign in</a></li>
+				{% else %}
+					<li><a href="/logoff">Log off</a></li>
+				{%endif%}
+			</ul>
+		</div>
+		<div class="container-fluid">
+			<h3>Edit user #{ {{user.id}} }</h3>
+			<a href="/" class="btn btn-primary" style="float:right">Return to Dashboard</a>
+			<div class="main_content" style="clear:both">
+				<div class="left_content">
+					<form action="/users/admin_edit_user" method="post">
+						{% csrf_token %} 
+						<input type="hidden" name="user_id" value="{{user.id}}">
+						<fieldset>
+							<legend>Edit Information:</legend>
+							<p>Email Address</p>
+							<input type="text" name="email" value="{{user.email}}">
+							<p>First Name</p>
+							<input type="text" name="first_name" value="{{user.first_name}}">
+							<p>Last Name</p>
+							<input type="text" name="last_name" value="{{user.last_name}}">
+							<p>User Level</p>
+							<select name="user_level" id="">
+								<option value="1">Normal</option>
+								<option value="9">Admin</option>
+							</select>
+							</br>
+							<input type="submit" value="Save">
+						</fieldset>
+					</form>
+				</div>
+				<div class="right_content">
+					<form action="/users/admin_edit_user" method="post">
+						{% csrf_token %} 
+						<input type="hidden" name="user_id" value="{{user.id}}">
+						<fieldset>
+							<legend>Change Password:</legend>
+							<p>Password</p>
+							<input type="password" name="password" v
+							<p>Password Confirmation</p>
+							<input type="password" name="confirm_password">
+							</br>
+							<input type="submit" value="Update Password">
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
