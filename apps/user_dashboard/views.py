@@ -3,7 +3,6 @@ from time import gmtime, strftime
 from apps.user_dashboard.models import *
 from django.contrib import messages
 from django.contrib.humanize.templatetags.humanize import naturaltime
-import bcrypt
 
 def index(request):
 	if "id" in request.session :
