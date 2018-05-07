@@ -26,6 +26,8 @@ SECRET_KEY = 't_5z4exrf06z&x-&#@@ic2f++m+d+wmgw5=hg4hk3ik^c3))n4'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['fathomless-fjord-89857.herokuapp.com']
+
 
 
 # Application definition
