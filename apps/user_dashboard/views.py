@@ -139,11 +139,14 @@ def admin_update_user(request):
 			user.save()
 
 		if "password" in request.POST:
-			if request.POST["password"] == request.POST["confirm_password"]:
-				user.password = request.POST["password"]
-				user.save()
+			if request.POST["password"] == "":
+				messages.add_message(request, messages.WARNING, "Password can't be blank", extra_tags='password')
 			else:
-				messages.add_message(request, messages.WARNING, "Password and confirm password is not equal.", extra_tags='password')
+				if request.POST["password"] == request.POST["confirm_password"]:
+					user.password = request.POST["password"]
+					user.save()
+				else:
+					messages.add_message(request, messages.WARNING, "Password and confirm password is not equal.", extra_tags='password')
 
 
 		return redirect("/users/edit/"+request.POST["user_id"])

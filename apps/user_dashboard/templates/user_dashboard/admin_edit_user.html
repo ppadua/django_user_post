@@ -43,7 +43,11 @@
 							<p>User Level</p>
 							<select name="user_level" id="">
 								<option value="1">Normal</option>
-								<option value="9">Admin</option>
+								{% if user.user_level == 9 %}
+									<option value="9" selected>Admin</option>
+								{% else %}
+									<option value="9">Admin</option>
+								{% endif %}
 							</select>
 							</br>
 							<input type="submit" value="Save">
@@ -51,6 +55,15 @@
 					</form>
 				</div>
 				<div class="right_content">
+					{% if messages %}
+					<ul class="messages">
+					{% for message in messages %}
+						{% if message.extra_tags  == "password" %}
+							<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+						 	{% endif %}
+						{% endfor %}
+					</ul>
+					{% endif %}
 					<form action="/users/admin_edit_user" method="post">
 						{% csrf_token %} 
 						<input type="hidden" name="user_id" value="{{user.id}}">
