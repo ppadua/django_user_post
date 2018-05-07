@@ -2,8 +2,8 @@ from django.shortcuts import render, HttpResponse, redirect
 from time import gmtime, strftime
 from apps.user_dashboard.models import *
 from django.contrib import messages
+from django.contrib.humanize.templatetags.humanize import naturaltime
 import bcrypt
-
 
 def index(request):
 	if "id" in request.session :
@@ -102,21 +102,28 @@ def user_dashboard(request):
 
 def admin_dashboard(request):
 	if "id" in request.session :
-		if request.session["user_level"] == 9:
-			return render(request, "user_dashboard/success.html", {"users" : User.objects.all()})
-		else:
-			return redirect("/dashboard")
+		return render(request, "user_dashboard/success.html", {"users" : User.objects.all()})
 	else:
 		return redirect("/")
 
 
 def edit_user(request):
-	user = User.objects.filter(id=request.session["id"]).first()
-	return render(request, "user_dashboard/edit_user.html", {"user" : user})
+	if "id" in request.session :
+		if request.session["user_level"] == 9:
+			return render(request, "user_dashboard/edit_user.html", {"user" : User.objects.filter(id=request.session["id"]).first()})
+		else:
+			return redirect("/dashboard")
+	else:
+		return redirect("/")
 
 def admin_edit_user(request, number):
-	user = User.objects.filter(id=number).first()
-	return render(request, "user_dashboard/admin_edit_user.html", {"user" : user})
+	if "id" in request.session :
+		if request.session["user_level"] == 9:
+			return render(request, "user_dashboard/admin_edit_user.html", {"user" : User.objects.filter(id=number).first()})
+		else:
+			return redirect("/dashboard")
+	else:
+		return redirect("/")
 
 def admin_update_user(request):
 	if request.method == "POST":
@@ -167,33 +174,39 @@ def normal_edit_user(request):
 	return render(request, "user_dashboard/edit_user.html", {"user" : user})
 
 def show_user(request, number):
-	context = {
-		"user" :  User.objects.filter(id=number).first(),
-		"messages" : User.objects.raw("SELECT user_dashboard_post.id as post_id, user_dashboard_post.*, posted_by.* FROM user_dashboard_post JOIN user_dashboard_user ON user_dashboard_user.id  = user_dashboard_post.posted_to_id JOIN user_dashboard_user as posted_by ON posted_by.id  = user_dashboard_post.posted_by_id WHERE user_dashboard_user.id = 1")
-	}
+	if "id" in request.session :
+		context = {
+				"user" :  User.objects.filter(id=number).first(),
+				"messages" : User.objects.raw("SELECT user_dashboard_post.id as post_id, user_dashboard_post.*, posted_by.* FROM user_dashboard_post JOIN user_dashboard_user ON user_dashboard_user.id  = user_dashboard_post.posted_to_id JOIN user_dashboard_user as posted_by ON posted_by.id  = user_dashboard_post.posted_by_id WHERE user_dashboard_user.id = %s", [number]),
+				"comments" : User.objects.raw("SELECT user_dashboard_comment.*, user_dashboard_user.* FROM user_dashboard_comment JOIN user_dashboard_post ON user_dashboard_post.id  = user_dashboard_comment.post_id JOIN user_dashboard_user ON user_dashboard_user.id = user_dashboard_comment.user_id")
+			}
 
-	print()
+		return render(request, "user_dashboard/user_profile.html", context)
+	else:
+		return redirect("/")
 
-	return render(request, "user_dashboard/user_profile.html", context)
 
 def post_message(request):
-	if request.method == "POST":
-		post = Post()
-		post.post_message = request.POST["post_message"]
-		post.posted_to = User.objects.filter(id=request.POST["posted_to"]).first()
-		post.posted_by = User.objects.filter(id=request.session["id"]).first()
-		post.save();
+	if "id" in request.session :
+		if request.method == "POST":
+			post = Post()
+			post.post_message = request.POST["post_message"]
+			post.posted_to = User.objects.filter(id=request.POST["posted_to"]).first()
+			post.posted_by = User.objects.filter(id=request.session["id"]).first()
+			post.save();
 
-	return redirect("/users/show/"+request.POST["posted_to"])
+		return redirect("/users/show/"+request.POST["posted_to"])
+	else:
+		return redirect("/")
 
 def post_comment(request):
 	if request.method == "POST":
-		post = Comment()
-		post.comment_message = request.POST["post_message"]
-		post.user = User.objects.filter(id=request.session["id"]).first()
-		post.posted_by = User.objects.filter(id=request.session["id"]).first()
-		post.save();
-
+		comment = Comment()
+		comment.comment_message = request.POST["post_comment"]
+		comment.user = User.objects.filter(id=request.session["id"]).first()
+		comment.post = Post.objects.filter(id=request.POST["post_id"]).first()
+		comment.save();
+		
 	return redirect("/users/show/"+request.POST["posted_to"])
 
 def logoff(request):

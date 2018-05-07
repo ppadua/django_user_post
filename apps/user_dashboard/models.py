@@ -45,7 +45,7 @@ class Post(models.Model):
 	objects = UserManager()
 
 class Comment(models.Model):
-	comment_message = models.IntegerField()
+	comment_message = models.TextField()
 	post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comment", default="")
 	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="commentor", default="")
 	created_at = models.DateTimeField(auto_now_add = True)

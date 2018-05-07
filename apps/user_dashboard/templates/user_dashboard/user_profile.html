@@ -9,6 +9,8 @@
 	<link rel="stylesheet" href="{% static 'user_dashboard/css/user_profile.css' %}" media="screen" title="no title"  charset="utf-8">
 </head>
 <body>
+	{% load humanize %}
+	
 	<div id="wrapper">
 		<div class="header">
 			<ul class="left_header list-group">
@@ -47,22 +49,28 @@
 						<section class="user_post">
 							<div class="post">
 								<p>{{message.first_name}} {{message.last_name}} wrote:</p>
-								<p>7 hours ago</p>
+								<p>{{message.created_at|naturaltime}}</p>
 								<div>
 									<span>{{message.post_message}}</span>
 								</div>
 							</div>
 							<ul class="comments">
-								<li>
-									<p>Mark Guiilen wrote:</p>
-									<p>7 hours ago</p>
-									<div>
-										<span>Hi Michael! I am having fun building BoomYEAH</span>
-									</div>
-								</li>
+								{% for comment in comments %}
+									<li>
+									{% if comment.post_id == message.post_id%}
+										<p>{{comment.first_name}} {{comment.last_name}} wrote:</p>
+										<p>{{comment.created_at|naturaltime}}</p>
+										<div>
+											<span>{{comment.comment_message}}</span>
+										</div>
+									{% endif%}
+									</li>
+								{% endfor %}
 								<li>
 									<form action="/users/post_comment" method="post">
+										{% csrf_token %}
 										<input type="hidden" value="{{message.post_id}}" name="post_id">
+										<input type="hidden" value="{{user.id}}" name="posted_to">
 										<textarea name="post_comment" id="" placeholder="write a message"></textarea>
 										<input type="submit" value="Post">
 									</form>
